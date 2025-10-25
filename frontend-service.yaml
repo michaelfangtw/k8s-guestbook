@@ -1,18 +1,17 @@
-# SOURCE: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend
-  labels:
-    app: guestbook
-    tier: frontend
+  name: frontend-nodeport
+  # ... other metadata
 spec:
-  # if your cluster supports it, uncomment the following to automatically create
-  # an external load-balanced IP for the frontend service.
-  # type: LoadBalancer
-  ports:
-    # the port that this service should serve on
-  - port: 80
+  # The selector is the critical part that must match the Pod labels
   selector:
-    app: guestbook
-    tier: frontend
+    app: guestbook  # MUST match the pod's 'app' label
+    tier: frontend # MUST match the pod's 'tier' label
+  ports:
+    - protocol: TCP
+      port: 80         # Port the service exposes (ClusterIP)
+      targetPort: 80   # Port the container inside the pod listens on
+      nodePort: 30959  # The external port on the node
+  type: NodePort
+  # ... other spec fields

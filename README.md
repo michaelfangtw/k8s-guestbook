@@ -216,3 +216,33 @@ kubernetes       ClusterIP   10.96.0.1       <none>        443/TCP    113m
 redis-follower   ClusterIP   10.102.77.64    <none>        6379/TCP   68m
 redis-leader     ClusterIP   10.109.136.67   <none>        6379/TCP   76m
 ```
+
+## trouble shooting
+### 1.get endpoints
+```
+kubectl get endpoints frontend-nodeport
+```
+```
+Warning: v1 Endpoints is deprecated in v1.33+; use discovery.k8s.io/v1 EndpointSlice
+NAME                ENDPOINTS                                      AGE
+frontend-nodeport   10.244.0.61:80,10.244.0.62:80,10.244.0.63:80   37h
+
+```
+
+### test endpoint
+```
+minikube service frontend-nodeport
+```
+```
+
+┌───────────┬───────────────────┬─────────────┬───────────────────────────┐
+│ NAMESPACE │       NAME        │ TARGET PORT │            URL            │
+├───────────┼───────────────────┼─────────────┼───────────────────────────┤
+│ default   │ frontend-nodeport │ nodeport/80 │ http://192.168.49.2:30959 │
+└───────────┴───────────────────┴─────────────┴───────────────────────────┘
+🎉  Opening service default/frontend-nodeport in default browser...
+
+╭─◀Sat Oct 25 19:50:43 ▶ /opt/k8s-guestbook ▶ 📂 1 📄 10 🔗 0 ▶🔀 main 
+╰▶🍄 Opening in existing browser session.
+
+```
