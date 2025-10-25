@@ -68,12 +68,6 @@ kubectl apply -f redis-leader-deployment.yaml
 deployment.apps/redis-leader created
 ```
 
-```bash
-kubectl apply -f redis-leader-service.yaml
-```
-```
-service/redis-leader created
-```
 
 ```bash
 kubectl get pods
@@ -91,12 +85,7 @@ kubectl apply -f redis-follower-deployment.yaml
 deployment.apps/redis-follower created
 ```
 
-```bash
-kubectl apply -f redis-follower-service.yaml
-```
-```
-service/redis-follower created
-```
+
 
 ```bash
 kubectl get pods
@@ -116,12 +105,6 @@ kubectl apply -f frontend-deployment.yaml
 deployment.apps/frontend created
 ```
 
-```bash
-kubectl apply -f frontend-service.yaml
-```
-```
-service/frontend created
-```
 
 ```bash
 kubectl get pods -l app=guestbook -l tier=frontend
@@ -156,7 +139,7 @@ service/frontend configured
 ```
 
 ```bash
-kubectl get service frontend
+kubectl get service frontend 
 ```
 ```
 NAME       TYPE           CLUSTER-IP      EXTERNAL-IP        PORT(S)        AGE
@@ -187,6 +170,7 @@ redis-leader-665d87459f-nlq45     1/1     Running   0          94m
 ```
 
 ### 6. Clean Up
+## delete-all.sh
 ```bash
 kubectl delete deployment -l app=redis
 kubectl delete service -l app=redis  
@@ -202,6 +186,7 @@ deployment.apps "frontend" deleted
 service "frontend" deleted
 ```
 ### 7.create all 
+## create-all.sh
 ```
 #create all
 kubectl apply -f redis-leader-service.yaml
